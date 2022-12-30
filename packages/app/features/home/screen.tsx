@@ -2,26 +2,24 @@ import {
   Anchor,
   Button,
   H1,
+  Input,
+  Label,
   Paragraph,
   Separator,
+  Sheet,
   XStack,
   YStack,
-  Sheet,
-  Image,
-  Label,
-  Input,
-  ScrollView,
 } from '@my/ui'
-import { KeyboardAvoidingView } from 'react-native'
 import { ChevronDown, ChevronUp } from '@tamagui/lucide-icons'
 import React, { useState } from 'react'
 import { useLink } from 'solito/link'
+import { SearchViewModal } from './SearchViewModal'
 
 export function HomeScreen() {
   const linkProps = useLink({
     href: '/user/nate',
   })
-const [isSearchModalOpen, setIsSearchModalOpen] = useState(false)
+  const [isSearchModalOpen, setIsSearchModalOpen] = useState(false)
   return (
     <YStack f={1} jc="center" ai="center" p="$4" space>
       <YStack space="$4" maw={600}>
@@ -31,9 +29,10 @@ const [isSearchModalOpen, setIsSearchModalOpen] = useState(false)
           same code on Next.js and React Native.
         </Paragraph>
 
+        <Input onFocus={() => setIsSearchModalOpen(true)} px="$5" placeholder="focus me" />
 
         <Separator />
-      
+
         <Paragraph ta="center">
           Made by{' '}
           <Anchor color="$color12" href="https://twitter.com/natebirdman" target="_blank">
@@ -54,7 +53,7 @@ const [isSearchModalOpen, setIsSearchModalOpen] = useState(false)
       <XStack>
         <Button {...linkProps}>Link to user</Button>
       </XStack>
-      
+      <SearchViewModal onClose={() => setIsSearchModalOpen(false)} show={isSearchModalOpen} />
       <SheetDemo />
     </YStack>
   )
